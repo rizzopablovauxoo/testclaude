@@ -7,7 +7,6 @@ class ResPartner(models.Model):
 
     icq = fields.Char(
         string="ICQ",
-        size=9,
         help="ICQ number (up to 9 numeric digits, optional)"
     )
 
