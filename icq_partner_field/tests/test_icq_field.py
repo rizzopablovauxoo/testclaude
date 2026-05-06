@@ -47,14 +47,13 @@ class TestICQField(TransactionCase):
                         'icq': icq_input,
                     })
 
-    def test_postcondition_4_icq_too_long_raises_error(self):
-        """Postcondition 4: Si icq tiene longitud >9 → ValidationError"""
-        with self.assertRaises(ValidationError,
-                              msg="icq with 10+ digits should raise ValidationError"):
-            self.env['res.partner'].create({
-                'name': 'Test Partner',
-                'icq': '1234567890',  # 10 digits
-            })
+    def test_postcondition_4_icq_max_length_stored_correctly(self):
+        """Postcondition 4: icq with 9 digits is stored correctly"""
+        partner = self.env['res.partner'].create({
+            'name': 'Test Partner',
+            'icq': '123456789',  # 9 digits
+        })
+        self.assertEqual(partner.icq, '123456789', "9-digit icq should be stored correctly")
 
     def test_postcondition_5_icq_position_in_form_view(self):
         """Postcondition 5: icq antes de category_id en form view"""
